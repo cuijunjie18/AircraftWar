@@ -2,6 +2,7 @@ package edu.hitsz.application;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * 程序入口
@@ -9,8 +10,8 @@ import java.awt.*;
  */
 public class Main {
 
-    public static final int WINDOW_WIDTH = 512;
-    public static final int WINDOW_HEIGHT = 768;
+    public static final int WINDOW_WIDTH = ImageManager.BACKGROUND_IMAGE.getWidth();
+    public static final int WINDOW_HEIGHT = ImageManager.BACKGROUND_IMAGE.getHeight();
 
     public static void main(String[] args) {
 
