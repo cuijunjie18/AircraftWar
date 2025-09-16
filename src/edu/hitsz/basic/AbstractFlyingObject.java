@@ -1,8 +1,8 @@
 package edu.hitsz.basic;
 
 import edu.hitsz.aircraft.AbstractAircraft;
-import edu.hitsz.application.Game;
 import edu.hitsz.application.ImageManager;
+import edu.hitsz.application.Main;
 
 import java.awt.image.BufferedImage;
 
@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
  *
  * @author hitsz
  */
-public abstract class FlyingObject {
+public abstract class AbstractFlyingObject {
 
     //locationX、locationY为图片中心位置坐标
     /**
@@ -56,27 +56,18 @@ public abstract class FlyingObject {
 
     /**
      * 有效（生存）标记，
-     * 通常标记为 false的对象会再下次刷新时清除
+     * 通常标记为 false的对象会在下次刷新时清除
      */
     protected boolean isValid = true;
 
-    public FlyingObject() {
+    public AbstractFlyingObject() {
     }
 
-    public FlyingObject(int locationX, int locationY, int speedX, int speedY) {
+    public AbstractFlyingObject(int locationX, int locationY, int speedX, int speedY) {
         this.locationX = locationX;
         this.locationY = locationY;
         this.speedX = speedX;
         this.speedY = speedY;
-    }
-
-    public FlyingObject(int locationX, int locationY, int speedX, int speedY, int width, int height) {
-        this.locationX = locationX;
-        this.locationY = locationY;
-        this.speedX = speedX;
-        this.speedY = speedY;
-        this.width = width;
-        this.height = height;
     }
 
     /**
@@ -86,7 +77,7 @@ public abstract class FlyingObject {
     public void forward() {
         locationX += speedX;
         locationY += speedY;
-        if (locationX <= 0 || locationX >= Game.WINDOW_WIDTH) {
+        if (locationX <= 0 || locationX >= Main.WINDOW_WIDTH) {
             // 横向超出边界后反向
             speedX = -speedX;
         }
@@ -107,11 +98,12 @@ public abstract class FlyingObject {
      * @param flyingObject 撞击对方
      * @return true: 我方被击中; false 我方未被击中
      */
-    public boolean crash(FlyingObject flyingObject) {
+    public boolean crash(AbstractFlyingObject flyingObject) {
         // 缩放因子，用于控制 y轴方向区域范围
-        int factor = this instanceof AbstractAircraft ? 2 : 1;
-        int fFactor = flyingObject instanceof AbstractAircraft ? 2 : 1;
+        int factor = this instanceof AbstractAircraft ? 2 : 1; //我方
+        int fFactor = flyingObject instanceof AbstractAircraft ? 2 : 1;//对方
 
+        //对方坐标、宽度、高度
         int x = flyingObject.getLocationX();
         int y = flyingObject.getLocationY();
         int fWidth = flyingObject.getWidth();
@@ -127,45 +119,17 @@ public abstract class FlyingObject {
         return locationX;
     }
 
-    public void setLocationX(double locationX) {
-        this.locationX = (int) locationX;
-    }
-
     public int getLocationY() {
         return locationY;
     }
 
-    public void setLocationY(double locationY) {
-        this.locationY = (int) locationY;
-    }
-
     public void setLocation(double locationX, double locationY){
-        setLocationX(locationX);
-        setLocationY(locationY);
-    }
-
-    public int getSpeedX() {
-        return speedX;
-    }
-
-    public void setSpeedX(int speedX) {
-        this.speedX = speedX;
-    }
-
-    public void setSpeedX(double speedX) {
-        this.speedX = (int) speedX;
+        this.locationX = (int) locationX;
+        this.locationY = (int) locationY;
     }
 
     public int getSpeedY() {
         return speedY;
-    }
-
-    public void setSpeedY(int speedY) {
-        this.speedY = speedY;
-    }
-
-    public void setSpeedY(double speedY) {
-        this.speedY = (int) speedY;
     }
 
     public BufferedImage getImage() {
@@ -183,10 +147,6 @@ public abstract class FlyingObject {
         return width;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     public int getHeight() {
         if (height == -1){
             // 若未设置，则查询图片高度并设置
@@ -194,11 +154,6 @@ public abstract class FlyingObject {
         }
         return height;
     }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public boolean notValid() {
         return !this.isValid;
     }
