@@ -9,4 +9,5 @@ src/edu/hitsz/application/*.java \
 src/edu/hitsz/aircraft/*.java \
 src/edu/hitsz/basic/*.java \
 src/edu/hitsz/bullet/*.java \
-src/edu/hitsz/prop/*.java
+src/edu/hitsz/prop/*.java \
+src/edu/hitsz/factory/*.java \

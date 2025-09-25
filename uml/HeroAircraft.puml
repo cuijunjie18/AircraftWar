@@ -1,0 +1,6 @@
+class HeroAircraft
+{
+    - HeroAircraft hero_singleton
+    - HeroAircraft()
+    + getInstance():HeroAircraft
+}

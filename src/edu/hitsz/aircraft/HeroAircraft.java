@@ -1,5 +1,7 @@
 package edu.hitsz.aircraft;
 
+import edu.hitsz.application.ImageManager;
+import edu.hitsz.application.Main;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.bullet.HeroBullet;
 
@@ -11,6 +13,12 @@ import java.util.List;
  * @author hitsz
  */
 public class HeroAircraft extends AbstractAircraft {
+
+    // 英雄机单例(饿汉式)
+    private static final HeroAircraft hero_singleton = 
+        new HeroAircraft(Main.WINDOW_WIDTH / 2,
+                Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
+                0, 0, 100);
 
     /**攻击方式 */
 
@@ -38,6 +46,10 @@ public class HeroAircraft extends AbstractAircraft {
      */
     public HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
+    }
+
+    public static HeroAircraft getInstance(){
+        return hero_singleton;
     }
 
     @Override

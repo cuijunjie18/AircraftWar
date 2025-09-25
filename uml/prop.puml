@@ -1,0 +1,55 @@
+class BaseProp
+{
+    +BaseProp(x: int, y: int, speedX: int, speedY: int)
+    +forward(): void
+    +action(): void
+}
+
+class PropBlood
+{
+    +PropBlood(x: int, y: int, speedX: int, speedY: int)
+    +forward(): void
+    +action(): void
+}
+
+class PropBullet
+{
+    +PropBullet(x: int, y: int, speedX: int, speedY: int)
+    +forward(): void
+    +action(): void
+}
+
+class PropBomb
+{
+    +PropBomb(x: int, y: int, speedX: int, speedY: int)
+    +forward(): void
+    +action(): void
+}
+
+BaseProp <|-- PropBlood
+BaseProp <|-- PropBullet
+BaseProp <|-- PropBomb 
+
+interface PropFactory
+{
+    +createProp(int x,int y): BaseProp
+}
+
+class PropBloodFactory
+{
+    +createProp(int x,int y): BaseProp
+}
+
+class PropBulletFactory
+{
+    +createProp(int x,int y): BaseProp
+}
+
+class PropBombFactory
+{
+    +createProp(int x,int y): BaseProp
+}
+PropFactory <|.. PropBloodFactory
+PropFactory <|.. PropBulletFactory  
+PropFactory <|.. PropBombFactory
+

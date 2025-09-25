@@ -5,6 +5,7 @@ import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.prop.*;
+import edu.hitsz.factory.*;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
@@ -33,6 +34,7 @@ public class Game extends JPanel {
      */
     private int timeInterval = 40;
 
+    // 飞行物
     private final HeroAircraft heroAircraft;
     private final List<AbstractAircraft> enemyAircrafts;
     private final List<BaseBullet> heroBullets;
@@ -40,6 +42,13 @@ public class Game extends JPanel {
     private final List<BaseProp> props; // 设置道具列表
 
     private int prop_class_num = 3; // 当前道具种类数
+
+    // 工厂
+    EliteEnemyFactory elite_enemy_factory;
+    MobEnemyFactory mob_enemy_factory;
+    PropBloodFactory prop_blood_factory;
+    PropBombFactory prop_bomb_factory;
+    PropBulletFactory prop_bullet_factory;
 
     /**
      * 屏幕中出现的敌机最大数量
@@ -68,11 +77,16 @@ public class Game extends JPanel {
     private boolean gameOverFlag = false;
 
     public Game() {
-        heroAircraft = new HeroAircraft(
-                Main.WINDOW_WIDTH / 2,
-                Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-                0, 0, 100);
+        heroAircraft = HeroAircraft.getInstance(); // 单例模式
 
+        // 工厂初始化
+        elite_enemy_factory = new EliteEnemyFactory();
+        mob_enemy_factory = new MobEnemyFactory();
+        prop_blood_factory = new PropBloodFactory();
+        prop_bomb_factory = new PropBombFactory();
+        prop_bullet_factory = new PropBulletFactory();
+
+        // 飞行物列表初始化
         enemyAircrafts = new LinkedList<>();
         heroBullets = new LinkedList<>();
         enemyBullets = new LinkedList<>();
@@ -112,19 +126,9 @@ public class Game extends JPanel {
 
                     // 根据随机数生成普通、精英敌机
                     if (random_num == 0){
-                        enemyAircrafts.add(new EliteEnemy((int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth())),
-                            (int) (Math.random() * Main.WINDOW_HEIGHT * 0.05),
-                            3,
-                            10,
-                            60)); // 精英敌机拥有水平速度与更高的血量
+                        enemyAircrafts.add(elite_enemy_factory.createEnemy());
                     }else{
-                        enemyAircrafts.add(new MobEnemy(
-                                (int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth())),
-                                (int) (Math.random() * Main.WINDOW_HEIGHT * 0.05),
-                                0,
-                                10,
-                                30
-                        ));
+                        enemyAircrafts.add(mob_enemy_factory.createEnemy());
                     }
                 }
                 // 飞机射出子弹
@@ -255,13 +259,13 @@ public class Game extends JPanel {
                             final int random_num = (int)(System.currentTimeMillis() % prop_class_num);
                             switch (random_num){
                             case 0:
-                                props.add(new PropBlood(enemyAircraft.getLocationX(), enemyAircraft.getLocationY(),3,10));
+                                props.add(prop_blood_factory.createProp(enemyAircraft.getLocationX(), enemyAircraft.getLocationY()));
                                 break;
                             case 1:
-                                props.add(new PropBomb(enemyAircraft.getLocationX(), enemyAircraft.getLocationY(),3,10));
+                                props.add(prop_bomb_factory.createProp(enemyAircraft.getLocationX(), enemyAircraft.getLocationY()));
                                 break;
                             case 2:
-                                props.add(new PropBullet(enemyAircraft.getLocationX(), enemyAircraft.getLocationY(),3,10));
+                                props.add(prop_bullet_factory.createProp(enemyAircraft.getLocationX(), enemyAircraft.getLocationY()));
                                 break;
                             default:
                                 break;

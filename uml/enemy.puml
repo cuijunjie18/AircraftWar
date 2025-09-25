@@ -1,0 +1,42 @@
+class AbstractAircraft
+{
+    +AbstractAircraft(x: int, y: int, speedX: int, speedY: int, hp: int)
+    +forward(): void
+    +shoot(): List<Bullet>
+}
+
+class MobEnemy
+{
+    +MobEnemy(x: int, y: int, speedX: int, speedY: int, hp: int)
+    +forward(): void
+    +shoot(): List<Bullet>
+}
+
+class EliteEnemy
+{
+    +EliteEnemy(x: int, y: int, speedX: int, speedY: int, hp: int)
+    +forward(): void
+    +shoot(): List<Bullet>
+}
+
+AbstractAircraft <|-- MobEnemy
+AbstractAircraft <|-- EliteEnemy
+
+interface EnemyFactory
+{
+    +createEnemy(): Enemy
+}
+
+class MobEnemyFactory
+{
+    +createEnemy(): Enemy
+}
+
+class EliteEnemyFactory
+{
+    +createEnemy(): Enemy
+}
+
+EnemyFactory <|.. MobEnemyFactory
+EnemyFactory <|.. EliteEnemyFactory 
+
