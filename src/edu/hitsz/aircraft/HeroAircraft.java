@@ -18,7 +18,7 @@ public class HeroAircraft extends AbstractAircraft {
     private static final HeroAircraft hero_singleton = 
         new HeroAircraft(Main.WINDOW_WIDTH / 2,
                 Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-                0, 0, 100);
+                0, 0, 1000);
 
     /**攻击方式 */
 

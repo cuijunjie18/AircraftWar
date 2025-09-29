@@ -1,17 +1,18 @@
 package edu.hitsz.factory;
 
 import edu.hitsz.aircraft.AbstractAircraft;
-import edu.hitsz.aircraft.EliteEnemy;
+import edu.hitsz.aircraft.SuperEliteEnemy;
 import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
 
-public class EliteEnemyFactory implements EnemyFactory{
+public class SuperEliteEnemyFactory implements EnemyFactory{
     @Override
     public AbstractAircraft createEnemy() {
         int speedX = (Math.random() > 0.5) ? 2 : -2; // 随机水平速度方向
         int speedY = 5;
-        int hp = 60;
-        return new EliteEnemy((int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.ELITE_ENEMY_IMAGE.getWidth())),
+        // int speedY = 0;
+        int hp = 100;
+        return new SuperEliteEnemy((int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.SUPER_ELITE_ENEMY_IMAGE.getWidth())),
                             (int) (Math.random() * Main.WINDOW_HEIGHT * 0.05),
                             speedX,
                             speedY,

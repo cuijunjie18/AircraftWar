@@ -1,6 +1,7 @@
 package edu.hitsz.application;
 
-
+import edu.hitsz.aircraft.SuperEliteEnemy;
+import edu.hitsz.aircraft.BossEnemy;
 import edu.hitsz.aircraft.EliteEnemy;
 import edu.hitsz.aircraft.HeroAircraft;
 import edu.hitsz.aircraft.MobEnemy;
@@ -31,12 +32,21 @@ public class ImageManager {
      */
     private static final Map<String, BufferedImage> CLASSNAME_IMAGE_MAP = new HashMap<>();
 
+    // 其他图片
     public static BufferedImage BACKGROUND_IMAGE;
-    public static BufferedImage HERO_IMAGE;
+
+    // 子弹图片
     public static BufferedImage HERO_BULLET_IMAGE;
     public static BufferedImage ENEMY_BULLET_IMAGE;
+
+    // 飞机图片
+    public static BufferedImage HERO_IMAGE;
     public static BufferedImage MOB_ENEMY_IMAGE;
     public static BufferedImage ELITE_ENEMY_IMAGE;
+    public static BufferedImage SUPER_ELITE_ENEMY_IMAGE;
+    public static BufferedImage BOSS_ENEMY_IMAGE;
+
+    // 道具图片
     public static BufferedImage PROP_BLOOD_IMAGE;
     public static BufferedImage PROP_BOMB_IMAGE;
     public static BufferedImage PROP_BULLET_IMAGE;
@@ -53,6 +63,8 @@ public class ImageManager {
             HERO_BULLET_IMAGE = ImageIO.read(new FileInputStream("src/images/bullet_hero.png"));
             ENEMY_BULLET_IMAGE = ImageIO.read(new FileInputStream("src/images/bullet_enemy.png"));
             ELITE_ENEMY_IMAGE = ImageIO.read(new FileInputStream("src/images/elite.png"));
+            SUPER_ELITE_ENEMY_IMAGE = ImageIO.read(new FileInputStream("src/images/elitePlus.png"));
+            BOSS_ENEMY_IMAGE = ImageIO.read(new FileInputStream("src/images/boss.png"));
             PROP_BLOOD_IMAGE = ImageIO.read(new FileInputStream("src/images/prop_blood.png"));
             PROP_BOMB_IMAGE = ImageIO.read(new FileInputStream("src/images/prop_bomb.png"));
             PROP_BULLET_IMAGE = ImageIO.read(new FileInputStream("src/images/prop_bullet.png"));
@@ -65,6 +77,8 @@ public class ImageManager {
             CLASSNAME_IMAGE_MAP.put(PropBlood.class.getName(), PROP_BLOOD_IMAGE);
             CLASSNAME_IMAGE_MAP.put(PropBomb.class.getName(), PROP_BOMB_IMAGE);
             CLASSNAME_IMAGE_MAP.put(PropBullet.class.getName(), PROP_BULLET_IMAGE);
+            CLASSNAME_IMAGE_MAP.put(SuperEliteEnemy.class.getName(), SUPER_ELITE_ENEMY_IMAGE);
+            CLASSNAME_IMAGE_MAP.put(BossEnemy.class.getName(), BOSS_ENEMY_IMAGE); 
 
         } catch (IOException e) {
             e.printStackTrace();

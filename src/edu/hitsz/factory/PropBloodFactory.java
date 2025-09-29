@@ -6,10 +6,12 @@ import edu.hitsz.prop.PropBlood;
 public class PropBloodFactory implements PropFactory {
     @Override
     public BaseProp createProp(int x,int y) {
+        int speedX = (Math.random() > 0.5) ? 3 : -3; // 随机水平速度方向
+        int speedY = 5;
         return new PropBlood(
                 x,y,
-                3, // speedX
-                10 // speedY
+                speedX,
+                speedY 
         );
     }
 }

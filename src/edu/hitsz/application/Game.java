@@ -46,6 +46,8 @@ public class Game extends JPanel {
     // 工厂
     EliteEnemyFactory elite_enemy_factory;
     MobEnemyFactory mob_enemy_factory;
+    SuperEliteEnemyFactory super_elite_enemy_factory;
+    BossEnemyFactory boss_enemy_factory;
     PropBloodFactory prop_blood_factory;
     PropBombFactory prop_bomb_factory;
     PropBulletFactory prop_bullet_factory;
@@ -53,7 +55,27 @@ public class Game extends JPanel {
     /**
      * 屏幕中出现的敌机最大数量
      */
-    private int enemyMaxNumber = 5;
+    private int enemyMaxNumber = 8;
+    private int boss_exist_flag = 0; // 是否已经生成Boss
+    private int boss_kill_count = 0; // 已击毁Boss数量
+
+    /**
+     * 敌机生成概率
+     * 70% 生成普通敌机
+     * 20% 生成精英敌机
+     * 10% 生成超级精英敌机
+     */
+    private int EnemyRate = 10;
+
+    /**
+     * 道具生成概率
+     * 30% 生成血量道具
+     * 30% 生成炸弹道具
+     * 30% 生成子弹道具
+     * 10% 不生成道具
+     */
+    private int PropRate = 4;
+
 
     /**
      * 当前得分
@@ -82,6 +104,8 @@ public class Game extends JPanel {
         // 工厂初始化
         elite_enemy_factory = new EliteEnemyFactory();
         mob_enemy_factory = new MobEnemyFactory();
+        super_elite_enemy_factory = new SuperEliteEnemyFactory();
+        boss_enemy_factory = new BossEnemyFactory();
         prop_blood_factory = new PropBloodFactory();
         prop_bomb_factory = new PropBombFactory();
         prop_bullet_factory = new PropBulletFactory();
@@ -122,15 +146,25 @@ public class Game extends JPanel {
                 // 新敌机产生
 
                 if (enemyAircrafts.size() < enemyMaxNumber) {
-                    final int random_num = (int)(System.currentTimeMillis() % enemyMaxNumber);
+                    final int random_num = (int)(System.currentTimeMillis() % EnemyRate);
 
-                    // 根据随机数生成普通、精英敌机
+                    // 根据随机数生成普通、精英敌机、超级精英敌机
                     if (random_num == 0){
+                        enemyAircrafts.add(super_elite_enemy_factory.createEnemy());
+                    }else if (random_num == 1 || random_num == 2){
                         enemyAircrafts.add(elite_enemy_factory.createEnemy());
-                    }else{
+                    }
+                    else{
                         enemyAircrafts.add(mob_enemy_factory.createEnemy());
                     }
                 }
+
+                // 每200分产生一个Boss, 且场上只能有一个Boss
+                if (score >= (boss_kill_count + 1) * 200 && score != 0 && boss_exist_flag == 0){
+                    enemyAircrafts.add(boss_enemy_factory.createEnemy());
+                    boss_exist_flag = 1;
+                }
+
                 // 飞机射出子弹
                 shootAction();
             }
@@ -189,9 +223,8 @@ public class Game extends JPanel {
     private void shootAction() {
         // 敌机射击
         for (AbstractAircraft enemy : enemyAircrafts) {
-            if (enemy instanceof EliteEnemy){
-                enemyBullets.addAll(enemy.shoot());
-            }
+            if (enemy instanceof MobEnemy) continue; // 普通敌机不射击
+            enemyBullets.addAll(enemy.shoot());
         }
 
         // 英雄射击
@@ -226,6 +259,22 @@ public class Game extends JPanel {
      * 2. 英雄攻击/撞击敌机
      * 3. 英雄获得补给
      */
+    private void generate_prop(int x,int y){
+        final int random_num = (int)(System.currentTimeMillis() % PropRate);
+        switch (random_num){
+        case 0:
+            props.add(prop_blood_factory.createProp(x, y));
+            break;
+        case 1:
+            props.add(prop_bomb_factory.createProp(x, y));
+            break;
+        case 2:
+            props.add(prop_bullet_factory.createProp(x, y));
+            break;
+        default: // 不生成道具
+            break;
+        }
+    }
     private void crashCheckAction() {
         // 敌机子弹攻击英雄
         for (BaseBullet bullet : enemyBullets){
@@ -252,26 +301,28 @@ public class Game extends JPanel {
                     // 敌机损失一定生命值
                     enemyAircraft.decreaseHp(bullet.getPower());
                     bullet.vanish();
-                    if (enemyAircraft.notValid()) {
+                    if (enemyAircraft.notValid()) {                        
                         // TODO 获得分数，产生道具补给
-                        if (enemyAircraft instanceof EliteEnemy){
-                            score += 10; // 额外加分
-                            final int random_num = (int)(System.currentTimeMillis() % prop_class_num);
-                            switch (random_num){
-                            case 0:
-                                props.add(prop_blood_factory.createProp(enemyAircraft.getLocationX(), enemyAircraft.getLocationY()));
-                                break;
-                            case 1:
-                                props.add(prop_bomb_factory.createProp(enemyAircraft.getLocationX(), enemyAircraft.getLocationY()));
-                                break;
-                            case 2:
-                                props.add(prop_bullet_factory.createProp(enemyAircraft.getLocationX(), enemyAircraft.getLocationY()));
-                                break;
-                            default:
-                                break;
-                            }
+                        int prop_x = enemyAircraft.getLocationX();
+                        int prop_y = enemyAircraft.getLocationY();
+                        if (enemyAircraft instanceof MobEnemy){
+                            score += 10;
+                        }else if (enemyAircraft instanceof EliteEnemy){
+                            score += 20;
+                            generate_prop(prop_x, prop_y);
                         }
-                        score += 10;
+                        else if (enemyAircraft instanceof SuperEliteEnemy){
+                            score += 30;
+                            generate_prop(prop_x, prop_y);
+                        }
+                        if (enemyAircraft instanceof BossEnemy){ // 生成 <= 3个道具
+                            score += 50;
+                            generate_prop(prop_x, prop_y);
+                            generate_prop((prop_x + 100) % Main.WINDOW_WIDTH, prop_y);
+                            generate_prop((prop_x + 200) % Main.WINDOW_WIDTH, prop_y);
+                            boss_exist_flag = 0; // Boss被击毁，标志复位
+                            boss_kill_count += 1;
+                        }
                     }
                 }
                 // 英雄机 与 敌机 相撞，均损毁
