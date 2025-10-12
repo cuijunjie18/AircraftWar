@@ -9,11 +9,7 @@ import edu.hitsz.bullet.EnemyBullet;
 
 public class BossEnemy extends AbstractAircraft{
     /**攻击方式 */
-
-    /**
-     * 子弹一次发射数量
-     */
-    private int shootNum = 20;
+    private String shootMode = "WAVE"; // 默认环绕
 
     /**
      * 子弹伤害
@@ -31,6 +27,7 @@ public class BossEnemy extends AbstractAircraft{
 
     public BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
+        setShootStrategy(shootMode); // 设置默认射击策略
     }
 
     @Override
@@ -50,24 +47,10 @@ public class BossEnemy extends AbstractAircraft{
         }
         shoot_count = 0;
 
-        List<BaseBullet> res = new LinkedList<>();
         int centerX = this.getLocationX();
         int centerY = this.getLocationY();
 
-        // 发射20颗子弹，分布在180度（π弧度）范围内：从 0 到 π
-        for (int i = 0; i < shootNum; i++) {
-            // 角度从 0 到 π 均匀分布
-            double angle = Math.PI * i / (shootNum - 1); // 当 shootNum > 1
-
-            // 计算速度分量（屏幕坐标系：y 向下为正）
-            int speedX = (int) Math.round(5 * Math.cos(angle));
-            int speedY = (int) Math.round(5 * Math.sin(angle));
-
-            BaseBullet bullet = new EnemyBullet(centerX, centerY, speedX, speedY, power);
-            res.add(bullet);
-        }
-
-        return res;
+        return shootStrategy.shoot(centerX, centerY, 0, 0, power, 1);
     }
 }
 

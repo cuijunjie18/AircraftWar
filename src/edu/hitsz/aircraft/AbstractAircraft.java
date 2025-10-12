@@ -5,6 +5,8 @@ import edu.hitsz.basic.AbstractFlyingObject;
 
 import java.util.List;
 
+import edu.hitsz.strategy.*;
+
 /**
  * 所有种类飞机的抽象父类：
  * 敌机（BOSS, ELITE, MOB），英雄飞机
@@ -18,10 +20,14 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
     protected int maxHp;
     protected int hp;
 
+    // 射击策略接口
+    protected ShootStrategy shootStrategy;
+
     public AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY);
         this.hp = hp;
         this.maxHp = hp;
+        shootStrategy = new NoneShoot();
     }
 
     public void decreaseHp(int decrease){
@@ -44,6 +50,22 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
         return hp;
     }
 
+    // 攻击策略选择
+    public void setShootStrategy(String strategy){
+        switch (strategy) {
+            case "NORMAL":
+                shootStrategy = new NormalShoot();
+                break;
+            case "SCATTER":
+                shootStrategy = new ScatterShoot();
+                break;
+            case "WAVE":
+                shootStrategy = new WaveShoot();
+                break;
+            default:
+                break;
+        }
+    }
 
     /**
      * 飞机射击方法，可射击对象必须实现

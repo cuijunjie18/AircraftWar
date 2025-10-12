@@ -11,3 +11,5 @@ src/edu/hitsz/basic/*.java \
 src/edu/hitsz/bullet/*.java \
 src/edu/hitsz/prop/*.java \
 src/edu/hitsz/factory/*.java \
+src/edu/hitsz/strategy/*.java \
+src/edu/hitsz/utils/*.java

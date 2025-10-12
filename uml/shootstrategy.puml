@@ -1,0 +1,27 @@
+interface ShootStrategy {
+    +shoot(x: int, y: int, speedX: int, speedY: int, power: int, shootNum: int,bulletType: int): List<BaseBullet>
+}
+
+class NoneShoot implements ShootStrategy {
++shoot(x: int, y: int, speedX: int, speedY: int, power: int, shootNum: int,bulletType: int): List<BaseBullet>
+}
+
+class NormalShoot implements ShootStrategy {
++shoot(x: int, y: int, speedX: int, speedY: int, power: int, shootNum: int,bulletType: int): List<BaseBullet>
+}
+
+class ScatterShoot implements ShootStrategy {
++shoot(x: int, y: int, speedX: int, speedY: int, power: int, shootNum: int,bulletType: int): List<BaseBullet>
+}
+
+class WaveShoot implements ShootStrategy {
++shoot(x: int, y: int, speedX: int, speedY: int, power: int, shootNum: int,bulletType: int): List<BaseBullet>
+}
+
+AbstractAircraft "1" *-- "1" ShootStrategy : strategy
+AbstractAircraft : +setStrategy(String strategy): void
+AbstractAircraft : +shoot(): List<BaseBullet>
+AbstractAircraft <|-- HeroAircraft
+AbstractAircraft <|-- EnemyAircraft
+AbstractAircraft <|-- BossEnemyAircraft
+

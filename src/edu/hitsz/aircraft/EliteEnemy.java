@@ -19,11 +19,8 @@ import java.util.List;
 public class EliteEnemy extends AbstractAircraft{
 
     /**攻击方式 */
+    private String shootMode = "NORMAL"; // 默认
 
-    /**
-     * 子弹一次发射数量
-     */
-    private int shootNum = 1;
 
     /**
      * 子弹伤害
@@ -41,6 +38,7 @@ public class EliteEnemy extends AbstractAircraft{
 
     public EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
+        setShootStrategy(shootMode); // 设置默认射击策略
     }
 
     @Override
@@ -59,18 +57,10 @@ public class EliteEnemy extends AbstractAircraft{
             return new LinkedList<>();
         }
         shoot_count = 0;
-        List<BaseBullet> res = new LinkedList<>();
         int x = this.getLocationX();
         int y = this.getLocationY() + direction*2;
         int speedX = 0;
         int speedY = this.getSpeedY() + direction*2;
-        BaseBullet bullet;
-        for(int i=0; i<shootNum; i++){
-            // 子弹发射位置相对飞机位置向前偏移
-            // 多个子弹横向分散
-            bullet = new EnemyBullet(x + (i*2 - shootNum + 1)*10, y, speedX, speedY, power);
-            res.add(bullet);
-        }
-        return res;
+        return shootStrategy.shoot(x, y, speedX, speedY, power, 1);
     }
 }

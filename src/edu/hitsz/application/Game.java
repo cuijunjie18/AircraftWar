@@ -345,15 +345,17 @@ public class Game extends JPanel {
                 prop.vanish();
                 if (prop instanceof PropBlood){
                     heroAircraft.increaseHp(30);
+                } else if (prop instanceof PropBullet){
+                    
+                    heroAircraft.changeShootMode("SCATTER");
+                } else if (prop instanceof PropBulletPlus){
+                    heroAircraft.changeShootMode("WAVE");
                 } else if (prop instanceof PropBomb){
                     // for (AbstractAircraft enemyAircraft : enemyAircrafts) {
                     //     if (enemyAircraft.notValid()) continue;
                     //     enemyAircraft.vanish();
                     //     score += 10;
                     // }
-                    prop.action();
-                } else if (prop instanceof PropBullet){
-                    // heroBullets.addAll(heroAircraft.shoot());
                     prop.action();
                 }
             }
