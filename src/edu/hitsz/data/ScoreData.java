@@ -1,0 +1,25 @@
+package edu.hitsz.data;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class ScoreData {
+    public String username;
+    public String timestamp;
+    public int score;
+
+    public ScoreData() {
+        this.username = "testUserName";
+
+        this.timestamp = 
+        LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+        this.score = 0;
+    }
+
+    public ScoreData(String username, int score, String timestamp) {
+        this.username = username;
+        this.timestamp = timestamp;
+        this.score = score;
+    }
+}

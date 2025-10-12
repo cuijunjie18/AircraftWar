@@ -6,6 +6,7 @@ import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.prop.*;
 import edu.hitsz.factory.*;
+import edu.hitsz.data.*;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
@@ -100,6 +101,8 @@ public class Game extends JPanel {
      * 游戏结束标志
      */
     private boolean gameOverFlag = false;
+    public ScoreDaoImpl scoreDao;
+    public ScoreData scoreDate;
 
     public Game() {
         heroAircraft = HeroAircraft.getInstance(); // 单例模式
@@ -119,6 +122,10 @@ public class Game extends JPanel {
         heroBullets = new LinkedList<>();
         enemyBullets = new LinkedList<>();
         props = new LinkedList<>();
+
+        // 保存数据初始化
+        scoreDao = new ScoreDaoImpl();
+        scoreDate = new ScoreData();
 
         /**
          * Scheduled 线程池，用于定时任务调度
@@ -197,6 +204,11 @@ public class Game extends JPanel {
                 executorService.shutdown();
                 gameOverFlag = true;
                 System.out.println("Game Over!");
+
+                // 保存分数和用户名
+                scoreDate.score = score;
+                scoreDao.saveScoreData(scoreDate, "score.txt");
+                scoreDao.showScoreRank("score.txt");
             }
 
         };

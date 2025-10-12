@@ -1,0 +1,18 @@
+interface ScoreDao {
+    +saveScore(scoreData:ScoreData,filename:String): void
+    +showScoreRank(filename:String): void
+}
+
+class ScoreDaoImpl implements ScoreDao {
+    +saveScore(scoreData:ScoreData,filename:String): void
+    +showScoreRank(filename:String): void
+}
+
+class ScoreData {
+    +username: String
+    +timestamp: String
+    +score: int
+}
+
+ScoreDao <|.. ScoreDaoImpl
+ScoreDaoImpl ..> ScoreData
