@@ -41,7 +41,7 @@ public class Game extends JPanel {
     private final List<BaseBullet> enemyBullets; // 设置敌机子弹列表
     private final List<BaseProp> props; // 设置道具列表
 
-    private int prop_class_num = 3; // 当前道具种类数
+    private int prop_class_num = 4; // 当前道具种类数
 
     // 工厂
     EliteEnemyFactory elite_enemy_factory;
@@ -51,6 +51,7 @@ public class Game extends JPanel {
     PropBloodFactory prop_blood_factory;
     PropBombFactory prop_bomb_factory;
     PropBulletFactory prop_bullet_factory;
+    PropBulletPlusFactory prop_bullet_plus_factory;
 
     /**
      * 屏幕中出现的敌机最大数量
@@ -73,10 +74,10 @@ public class Game extends JPanel {
      * 道具生成概率
      * 30% 生成血量道具
      * 30% 生成炸弹道具
-     * 30% 生成子弹道具
+     * 30% 生成子弹道具(两种)
      * 10% 不生成道具
      */
-    private int PropRate = 4;
+    private int PropRate = 10;
 
 
     /**
@@ -111,6 +112,7 @@ public class Game extends JPanel {
         prop_blood_factory = new PropBloodFactory();
         prop_bomb_factory = new PropBombFactory();
         prop_bullet_factory = new PropBulletFactory();
+        prop_bullet_plus_factory = new PropBulletPlusFactory();
 
         // 飞行物列表初始化
         enemyAircrafts = new LinkedList<>();
@@ -263,18 +265,19 @@ public class Game extends JPanel {
      */
     private void generate_prop(int x,int y){
         final int random_num = random_factory.nextInt(PropRate);
-        switch (random_num){
-        case 0:
+        if (random_num >= 0 && random_num < 3){ // 30% 生成血量道具
             props.add(prop_blood_factory.createProp(x, y));
-            break;
-        case 1:
+        } else if (random_num >= 3 && random_num < 6){ // 30% 生成炸弹道具
             props.add(prop_bomb_factory.createProp(x, y));
-            break;
-        case 2:
-            props.add(prop_bullet_factory.createProp(x, y));
-            break;
-        default: // 不生成道具
-            break;
+        } else if (random_num >= 6 && random_num < 9){ // 30% 生成子弹道具(两种)
+            int bullet_type = random_factory.nextInt(2);
+            if (bullet_type == 0){
+                props.add(prop_bullet_factory.createProp(x, y));
+            } else if (bullet_type == 1){
+                props.add(prop_bullet_plus_factory.createProp(x, y));
+            }
+        } else{ // 10% 不生成道具
+            return;
         }
     }
     private void crashCheckAction() {
