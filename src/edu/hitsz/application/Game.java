@@ -59,6 +59,8 @@ public class Game extends JPanel {
     private int boss_exist_flag = 0; // 是否已经生成Boss
     private int boss_kill_count = 0; // 已击毁Boss数量
 
+    Random random_factory = new Random(); // 生成随机数
+
     /**
      * 敌机生成概率
      * 70% 生成普通敌机
@@ -146,7 +148,7 @@ public class Game extends JPanel {
                 // 新敌机产生
 
                 if (enemyAircrafts.size() < enemyMaxNumber) {
-                    final int random_num = (int)(System.currentTimeMillis() % EnemyRate);
+                    final int random_num = random_factory.nextInt(EnemyRate);
 
                     // 根据随机数生成普通、精英敌机、超级精英敌机
                     if (random_num == 0){
@@ -260,7 +262,7 @@ public class Game extends JPanel {
      * 3. 英雄获得补给
      */
     private void generate_prop(int x,int y){
-        final int random_num = (int)(System.currentTimeMillis() % PropRate);
+        final int random_num = random_factory.nextInt(PropRate);
         switch (random_num){
         case 0:
             props.add(prop_blood_factory.createProp(x, y));
@@ -318,8 +320,8 @@ public class Game extends JPanel {
                         if (enemyAircraft instanceof BossEnemy){ // 生成 <= 3个道具
                             score += 50;
                             generate_prop(prop_x, prop_y);
-                            generate_prop((prop_x + 100) % Main.WINDOW_WIDTH, prop_y);
-                            generate_prop((prop_x + 200) % Main.WINDOW_WIDTH, prop_y);
+                            generate_prop((prop_x + 100) % Main.WINDOW_WIDTH, prop_y + 20);
+                            generate_prop((prop_x + 200) % Main.WINDOW_WIDTH, prop_y + 50);
                             boss_exist_flag = 0; // Boss被击毁，标志复位
                             boss_kill_count += 1;
                         }
