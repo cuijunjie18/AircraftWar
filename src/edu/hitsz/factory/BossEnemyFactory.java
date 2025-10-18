@@ -10,7 +10,7 @@ public class BossEnemyFactory implements EnemyFactory{
     public AbstractAircraft createEnemy() {
         int speedX = (Math.random() > 0.5) ? 2 : -2; // 随机水平速度方向
         int speedY = 0;
-        int hp = 120;
+        int hp = 160;
         return new BossEnemy((int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.BOSS_ENEMY_IMAGE.getWidth())),
                             (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2),
                             speedX,

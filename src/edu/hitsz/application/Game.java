@@ -1,5 +1,6 @@
 package edu.hitsz.application;
 
+import edu.hitsz.Music.*;
 import edu.hitsz.aircraft.*;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.bullet.EnemyBullet;
@@ -43,6 +44,14 @@ public class Game extends JPanel {
     private final List<BaseProp> props; // 设置道具列表
 
     private int prop_class_num = 4; // 当前道具种类数
+
+    // 音乐
+    public boolean MusicOpen = true;
+    private LoopMusic background_music; // 背景音乐使用循环播放
+    private String boom_music;
+    private String shoot_music;
+    private String get_prop_music;
+    private String game_over_music;
 
     // 工厂
     EliteEnemyFactory elite_enemy_factory;
@@ -127,6 +136,13 @@ public class Game extends JPanel {
         scoreDao = new ScoreDaoImpl();
         scoreDate = new ScoreData();
 
+        // 音效初始化
+        background_music = new LoopMusic("src/videos/bgm.wav");
+        boom_music = "src/videos/bomb_explosion.wav";
+        shoot_music = "src/videos/bullet_hit.wav";
+        get_prop_music = "src/videos/get_supply.wav";
+        game_over_music = "src/videos/game_over.wav";
+
         /**
          * Scheduled 线程池，用于定时任务调度
          * 关于alibaba code guide：可命名的 ThreadFactory 一般需要第三方包
@@ -138,6 +154,8 @@ public class Game extends JPanel {
         //启动英雄机鼠标监听
         new HeroController(this, heroAircraft);
 
+        // 是否播放声音
+        if (MusicOpen) background_music.start();
     }
 
     /**
@@ -204,6 +222,10 @@ public class Game extends JPanel {
                 executorService.shutdown();
                 gameOverFlag = true;
                 System.out.println("Game Over!");
+                if (MusicOpen){
+                    background_music.looping = false;
+                    new MusicThread(game_over_music).start();
+                }
 
                 // 保存分数和用户名
                 scoreDate.score = score;
@@ -245,6 +267,9 @@ public class Game extends JPanel {
 
         // 英雄射击
         heroBullets.addAll(heroAircraft.shoot());
+
+        // 检查英雄机的火力道具持续时间
+        heroAircraft.checkShootModeDuration();
     }
 
     private void bulletsMoveAction() {
@@ -314,6 +339,7 @@ public class Game extends JPanel {
                     continue;
                 }
                 if (enemyAircraft.crash(bullet)) {
+                    if (MusicOpen) new MusicThread(shoot_music).start();
                     // 敌机撞击到英雄机子弹
                     // 敌机损失一定生命值
                     enemyAircraft.decreaseHp(bullet.getPower());
@@ -355,19 +381,15 @@ public class Game extends JPanel {
             if (prop.notValid()) continue;
             if (heroAircraft.crash(prop)){
                 prop.vanish();
+                if (MusicOpen) new MusicThread(get_prop_music).start();
                 if (prop instanceof PropBlood){
                     heroAircraft.increaseHp(30);
                 } else if (prop instanceof PropBullet){
-                    
                     heroAircraft.changeShootMode("SCATTER");
                 } else if (prop instanceof PropBulletPlus){
                     heroAircraft.changeShootMode("WAVE");
                 } else if (prop instanceof PropBomb){
-                    // for (AbstractAircraft enemyAircraft : enemyAircrafts) {
-                    //     if (enemyAircraft.notValid()) continue;
-                    //     enemyAircraft.vanish();
-                    //     score += 10;
-                    // }
+                    if (MusicOpen) new MusicThread(boom_music).start();
                     prop.action();
                 }
             }

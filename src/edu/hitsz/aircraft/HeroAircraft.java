@@ -22,6 +22,7 @@ public class HeroAircraft extends AbstractAircraft {
 
     /**攻击方式 */
     private String shootMode = "NORMAL"; // 默认
+    private int shoot_times = 0;
 
     /**
      * 子弹伤害
@@ -43,6 +44,7 @@ public class HeroAircraft extends AbstractAircraft {
     public HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
         setShootStrategy(shootMode); // 设置默认射击策略
+        shoot_times = 0;
     }
 
     public static HeroAircraft getInstance(){
@@ -51,7 +53,18 @@ public class HeroAircraft extends AbstractAircraft {
 
     public void changeShootMode(String mode){
         this.shootMode = mode;
+        shoot_times = 0; // 重新计数
         setShootStrategy(shootMode); // 切换射击模式
+    }
+
+    public void checkShootModeDuration(){
+        if(!shootMode.equals("NORMAL")){
+            shoot_times++;
+            if(shoot_times >= 10){ // 持续200次射击后恢复普通模式
+                changeShootMode("NORMAL");
+                shoot_times = 0;
+            }
+        }
     }
 
     @Override

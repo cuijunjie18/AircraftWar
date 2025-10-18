@@ -14,3 +14,4 @@ src/edu/hitsz/factory/*.java \
 src/edu/hitsz/strategy/*.java \
 src/edu/hitsz/utils/*.java \
 src/edu/hitsz/data/*.java \
+src/edu/hitsz/Music/*.java \
