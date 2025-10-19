@@ -18,11 +18,24 @@ public class RankPanel extends JPanel {
     private JTable rankTable;
     private DefaultTableModel tableModel;
     private String difficulty; // 当前难度，如 "EASY"
-    private String filename = "score.txt";
+    private String filename = "score_easy.txt";
     private JButton deleteBtn;
 
     public RankPanel(String difficulty) {
         this.difficulty = difficulty;
+        switch (difficulty) {
+            case "EASY":
+                filename = "score_easy.txt";
+                break;
+            case "MEDIUM":
+                filename = "score_medium.txt";
+                break;
+            case "HARD":
+                filename = "score_hard.txt";
+                break;
+            default:
+                break;
+        }
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT));
 

@@ -98,6 +98,7 @@ public class Game extends JPanel {
      * 当前得分
      */
     private int score = 0;
+    private String score_filename;
     /**
      * 当前时刻
      */
@@ -124,15 +125,19 @@ public class Game extends JPanel {
         switch (this.difficulty) {
             case "EASY":
                 this.background_image = ImageManager.BACKGROUND_IMAGE_EASY;
+                this.score_filename = "score_easy.txt";
                 break;
             case "MEDIUM":
                 this.background_image = ImageManager.BACKGROUND_IMAGE_MEDIUM;
+                this.score_filename = "score_medium.txt";
                 break;
             case "HARD":
                 this.background_image = ImageManager.BACKGROUND_IMAGE_HARD;
+                this.score_filename = "score_hard.txt";
                 break;
             default:
                 this.background_image = ImageManager.BACKGROUND_IMAGE_EASY; // 默认简单难度
+                this.score_filename = "score_easy.txt";
                 break;
         }
     }
@@ -287,7 +292,7 @@ public class Game extends JPanel {
                     // 保存分数和用户名
                     scoreDate.score = score;
                     scoreDate.username = username;
-                    scoreDao.saveScoreData(scoreDate, "score.txt");
+                    scoreDao.saveScoreData(scoreDate, score_filename);
                     // scoreDao.showScoreRank("score.txt");
                     
                     // 刷新排行榜数据（因为刚保存了新分数）
