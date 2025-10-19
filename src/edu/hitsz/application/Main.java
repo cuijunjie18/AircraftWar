@@ -10,8 +10,8 @@ import java.awt.image.BufferedImage;
  */
 public class Main {
 
-    public static final int WINDOW_WIDTH = ImageManager.BACKGROUND_IMAGE.getWidth();
-    public static final int WINDOW_HEIGHT = ImageManager.BACKGROUND_IMAGE.getHeight();
+    public static final int WINDOW_WIDTH = ImageManager.BACKGROUND_IMAGE_EASY.getWidth();
+    public static final int WINDOW_HEIGHT = ImageManager.BACKGROUND_IMAGE_EASY.getHeight();
 
     public static void main(String[] args) {
 
@@ -27,9 +27,20 @@ public class Main {
                 WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Game game = new Game();
-        frame.add(game);
+        // 使用 CardLayout 管理菜单和游戏面板
+        JPanel mainPanel = new JPanel(new CardLayout());
+        MenuPanel menuPanel = new MenuPanel();
+        Game gamePanel = new Game();
+
+        mainPanel.add(menuPanel, "menu");
+        mainPanel.add(gamePanel, "game");
+
+        frame.add(mainPanel);
         frame.setVisible(true);
-        game.action();
+
+        // Game game = new Game();
+        // frame.add(game);
+        // frame.setVisible(true);
+        // game.action();
     }
 }

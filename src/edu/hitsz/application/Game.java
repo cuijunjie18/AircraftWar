@@ -46,12 +46,16 @@ public class Game extends JPanel {
     private int prop_class_num = 4; // 当前道具种类数
 
     // 音乐
-    public boolean MusicOpen = true;
+    public boolean MusicOpen = false;
     private LoopMusic background_music; // 背景音乐使用循环播放
     private String boom_music;
     private String shoot_music;
     private String get_prop_music;
     private String game_over_music;
+
+    // 难度
+    private String difficulty = "EASY"; // 默认简单难度
+    public BufferedImage background_image;
 
     // 工厂
     EliteEnemyFactory elite_enemy_factory;
@@ -113,6 +117,32 @@ public class Game extends JPanel {
     public ScoreDaoImpl scoreDao;
     public ScoreData scoreDate;
 
+    public void setDifficulty(String selectedDifficulty){
+        this.difficulty = selectedDifficulty;
+
+        // 设置对应难度的背景
+        switch (this.difficulty) {
+            case "EASY":
+                this.background_image = ImageManager.BACKGROUND_IMAGE_EASY;
+                break;
+            case "MEDIUM":
+                this.background_image = ImageManager.BACKGROUND_IMAGE_MEDIUM;
+                break;
+            case "HARD":
+                this.background_image = ImageManager.BACKGROUND_IMAGE_HARD;
+                break;
+            default:
+                this.background_image = ImageManager.BACKGROUND_IMAGE_EASY; // 默认简单难度
+                break;
+        }
+    }
+
+    public void setSoundEnabled(boolean isSoundOn){
+        this.MusicOpen = isSoundOn;
+        // 是否播放声音
+        if (MusicOpen) background_music.start();
+    }
+
     public Game() {
         heroAircraft = HeroAircraft.getInstance(); // 单例模式
 
@@ -153,9 +183,6 @@ public class Game extends JPanel {
 
         //启动英雄机鼠标监听
         new HeroController(this, heroAircraft);
-
-        // 是否播放声音
-        if (MusicOpen) background_music.start();
     }
 
     /**
@@ -227,10 +254,45 @@ public class Game extends JPanel {
                     new MusicThread(game_over_music).start();
                 }
 
-                // 保存分数和用户名
-                scoreDate.score = score;
-                scoreDao.saveScoreData(scoreDate, "score.txt");
-                scoreDao.showScoreRank("score.txt");
+                // 切换到排行榜界面
+                Container parent = getParent();
+                if (parent instanceof JPanel) {
+                    JPanel mainPanel = (JPanel) parent;
+                    CardLayout cl = (CardLayout) mainPanel.getLayout();
+
+                    // 如果还没有创建 RankPanel，就创建它
+                    Component[] components = mainPanel.getComponents();
+                    RankPanel rankPanel = null;
+                    for (Component comp : components) {
+                        if (comp instanceof RankPanel) {
+                            rankPanel = (RankPanel) comp;
+                            break;
+                        }
+                    }
+
+                    if (rankPanel == null) {
+                        rankPanel = new RankPanel(difficulty); // 传入当前难度
+                        mainPanel.add(rankPanel, "rank");
+                    }
+
+                    // 切换到排行榜
+                    cl.show(mainPanel, "rank");
+
+                    String username = JOptionPane.showInputDialog(
+                                    this,
+                                    "游戏结束，你的得分为 " + score + "。\n请输入名字记录得分：",
+                                    "输入",
+                                    JOptionPane.QUESTION_MESSAGE);
+
+                    // 保存分数和用户名
+                    scoreDate.score = score;
+                    scoreDate.username = username;
+                    scoreDao.saveScoreData(scoreDate, "score.txt");
+                    // scoreDao.showScoreRank("score.txt");
+                    
+                    // 刷新排行榜数据（因为刚保存了新分数）
+                    rankPanel.loadScores();
+                }
             }
 
         };
@@ -426,8 +488,8 @@ public class Game extends JPanel {
         super.paint(g);
 
         // 绘制背景,图片滚动
-        g.drawImage(ImageManager.BACKGROUND_IMAGE, 0, this.backGroundTop - Main.WINDOW_HEIGHT, null);
-        g.drawImage(ImageManager.BACKGROUND_IMAGE, 0, this.backGroundTop, null);
+        g.drawImage(this.background_image, 0, this.backGroundTop - Main.WINDOW_HEIGHT, null);
+        g.drawImage(this.background_image, 0, this.backGroundTop, null);
         this.backGroundTop += 1;
         if (this.backGroundTop == Main.WINDOW_HEIGHT) {
             this.backGroundTop = 0;

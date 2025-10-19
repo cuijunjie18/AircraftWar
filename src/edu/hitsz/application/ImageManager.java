@@ -34,7 +34,9 @@ public class ImageManager {
     private static final Map<String, BufferedImage> CLASSNAME_IMAGE_MAP = new HashMap<>();
 
     // 其他图片
-    public static BufferedImage BACKGROUND_IMAGE;
+    public static BufferedImage BACKGROUND_IMAGE_EASY;
+    public static BufferedImage BACKGROUND_IMAGE_MEDIUM;
+    public static BufferedImage BACKGROUND_IMAGE_HARD;
 
     // 子弹图片
     public static BufferedImage HERO_BULLET_IMAGE;
@@ -56,9 +58,10 @@ public class ImageManager {
     static {
         try {
 
-            BACKGROUND_IMAGE = ImageIO.read(new FileInputStream("src/images/bg.jpg")); // 提交用
-            // BACKGROUND_IMAGE = ImageIO.read(new FileInputStream("src/images/resize_images/bg.jpg")); // 使用resize后的图片(debug用)
-            System.out.printf("Background size:%d,%d\n",BACKGROUND_IMAGE.getWidth(),BACKGROUND_IMAGE.getHeight());
+            BACKGROUND_IMAGE_EASY = ImageIO.read(new FileInputStream("src/images/bg.jpg"));
+            BACKGROUND_IMAGE_MEDIUM = ImageIO.read(new FileInputStream("src/images/bg3.jpg"));
+            BACKGROUND_IMAGE_HARD = ImageIO.read(new FileInputStream("src/images/bg5.jpg"));
+            System.out.printf("Background size:%d,%d\n",BACKGROUND_IMAGE_EASY.getWidth(),BACKGROUND_IMAGE_EASY.getHeight());
 
             HERO_IMAGE = ImageIO.read(new FileInputStream("src/images/hero.png"));
             MOB_ENEMY_IMAGE = ImageIO.read(new FileInputStream("src/images/mob.png"));

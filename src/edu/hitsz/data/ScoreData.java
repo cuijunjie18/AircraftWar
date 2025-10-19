@@ -22,4 +22,9 @@ public class ScoreData {
         this.timestamp = timestamp;
         this.score = score;
     }
+
+    // 添加 getter 方法便于 JTable 使用
+    public String getUsername() { return username; }
+    public int getScore() { return score; }
+    public String getTimestamp() { return timestamp; }
 }
