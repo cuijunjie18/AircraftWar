@@ -2,6 +2,34 @@
 
 author:2023311I28-崔俊杰
 
+## 目录
+
+[背景](#背景)  
+[开发日志](#开发日志)  
+[Get started](#get-started)  
+
+## 背景
+
+Hitsz的25年软件构造实验，已完成全部内容.
+
+## Get started
+
+OS: Ubuntu22.04
+
+- 检查环境
+  ```shell
+  java --version
+  ```
+  如果没有，请自行配置
+
+- 部署执行
+  ```shell
+  git clone https://github.com/cuijunjie18/AircraftWar.git
+  cd AircraftWar
+  bash build.sh
+  bash run.sh
+  ```
+
 ## 开发日志
 
 - 2025.9.16
