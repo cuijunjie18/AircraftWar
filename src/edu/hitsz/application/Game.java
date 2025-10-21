@@ -9,6 +9,7 @@ import edu.hitsz.prop.*;
 import edu.hitsz.factory.*;
 import edu.hitsz.data.*;
 import edu.hitsz.observer.*;
+import edu.hitsz.difficulty.*;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
@@ -56,6 +57,7 @@ public class Game extends JPanel {
 
     // 难度
     private String difficulty = "EASY"; // 默认简单难度
+    private Difficulty difficulty_control;
     public BufferedImage background_image;
 
     // 工厂
@@ -130,14 +132,17 @@ public class Game extends JPanel {
             case "EASY":
                 this.background_image = ImageManager.BACKGROUND_IMAGE_EASY;
                 this.score_filename = "score_easy.txt";
+                this.difficulty_control = new Easy();
                 break;
             case "MEDIUM":
                 this.background_image = ImageManager.BACKGROUND_IMAGE_MEDIUM;
                 this.score_filename = "score_medium.txt";
+                this.difficulty_control = new Medium();
                 break;
             case "HARD":
                 this.background_image = ImageManager.BACKGROUND_IMAGE_HARD;
                 this.score_filename = "score_hard.txt";
+                this.difficulty_control = new Hard();
                 break;
             default:
                 this.background_image = ImageManager.BACKGROUND_IMAGE_EASY; // 默认简单难度
@@ -227,8 +232,9 @@ public class Game extends JPanel {
                     }
                 }
 
-                // 每200分产生一个Boss, 且场上只能有一个Boss
-                if (score >= (boss_kill_count + 1) * 200 && score != 0 && boss_exist_flag == 0){
+                // 每300分产生一个Boss, 且场上只能有一个Boss(仅普通模式、困难模式)
+                if (score >= (boss_kill_count + 1) * 300 && score != 0 && boss_exist_flag == 0 
+                        && difficulty != "EASY"){
                     enemyAircrafts.add(boss_enemy_factory.createEnemy());
                     boss_exist_flag = 1;
                 }
@@ -257,6 +263,9 @@ public class Game extends JPanel {
 
             //每个时刻重绘界面
             repaint();
+
+            // 难度变化
+            difficulty_control.improve_difficulty();
 
             // 游戏结束检查英雄机是否存活
             if (heroAircraft.getHp() <= 0) {

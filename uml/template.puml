@@ -1,0 +1,27 @@
+abstract class Difficulty
+{
+    + eliteProbability: double;
+    + enemyCycle: double;
+    + enemyAbility: double;
+    + Difficulty();
+    + improve_difficulty():void;
+}
+
+class Easy
+{
+    + improve_difficulty():void;
+}
+
+class Medium
+{
+    + improve_difficulty():void;
+}
+
+class Hard
+{
+    + improve_difficulty():void;
+}
+
+Difficulty <|-- Easy
+Difficulty <|-- Medium
+Difficulty <|-- Hard

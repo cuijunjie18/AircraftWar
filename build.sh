@@ -16,3 +16,4 @@ src/edu/hitsz/utils/*.java \
 src/edu/hitsz/data/*.java \
 src/edu/hitsz/Music/*.java \
 src/edu/hitsz/observer/*.java \
+src/edu/hitsz/difficulty/*.java \
