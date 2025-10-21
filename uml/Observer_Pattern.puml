@@ -1,0 +1,26 @@
+class PropBomb
+{
+    - observersFlying:List<AbstractFlyingObject>
+    +BaseProp(x: int, y: int, speedX: int, speedY: int)
+    +registerObserver(AbstractFlyingObject object): void
+    +removeObserver(AbstractFlyingObject object): void
+    +notifyObservers(): void
+}
+
+class AbstractFlyingObject
+{
+    +update(): void
+}
+
+class BaseBullet
+{
+    +update(): void
+}
+
+class AbstractAircraft
+{
+    +update(): void
+}
+
+AbstractFlyingObject <|-- BaseBullet
+AbstractFlyingObject <|-- AbstractAircraft

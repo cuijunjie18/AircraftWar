@@ -9,4 +9,9 @@ public class EnemyBullet extends BaseBullet {
         super(locationX, locationY, speedX, speedY, power);
     }
 
+    @Override
+    public void update(){
+        vanish();
+    }
+
 }

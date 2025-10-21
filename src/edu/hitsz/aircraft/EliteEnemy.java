@@ -63,4 +63,9 @@ public class EliteEnemy extends AbstractAircraft{
         int speedY = this.getSpeedY() + direction*2;
         return shootStrategy.shoot(x, y, speedX, speedY, power, 1);
     }
+
+    @Override
+    public void update(){
+        decreaseHp(maxHp);
+    }
 }

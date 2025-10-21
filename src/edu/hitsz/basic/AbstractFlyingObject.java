@@ -168,5 +168,10 @@ public abstract class AbstractFlyingObject {
         isValid = false;
     }
 
+    // 用于观察者模式
+    public void update(){
+
+    }
+
 }
 

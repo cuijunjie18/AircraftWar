@@ -8,6 +8,7 @@ import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.prop.*;
 import edu.hitsz.factory.*;
 import edu.hitsz.data.*;
+import edu.hitsz.observer.*;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
@@ -66,6 +67,9 @@ public class Game extends JPanel {
     PropBombFactory prop_bomb_factory;
     PropBulletFactory prop_bullet_factory;
     PropBulletPlusFactory prop_bullet_plus_factory;
+
+    // 观察者
+    Bombsubject bombsubject;
 
     /**
      * 屏幕中出现的敌机最大数量
@@ -178,6 +182,9 @@ public class Game extends JPanel {
         get_prop_music = "src/videos/get_supply.wav";
         game_over_music = "src/videos/game_over.wav";
 
+        // 观察者初始化
+        bombsubject = new Bombsubject();
+
         /**
          * Scheduled 线程池，用于定时任务调度
          * 关于alibaba code guide：可命名的 ThreadFactory 一般需要第三方包
@@ -203,7 +210,7 @@ public class Game extends JPanel {
 
             // 周期性执行（控制频率）
             if (timeCountAndNewCycleJudge()) {
-                System.out.println(time);
+                // System.out.println(time);
                 // 新敌机产生
 
                 if (enemyAircrafts.size() < enemyMaxNumber) {
@@ -225,6 +232,9 @@ public class Game extends JPanel {
                     enemyAircrafts.add(boss_enemy_factory.createEnemy());
                     boss_exist_flag = 1;
                 }
+
+                // 观察者注册新敌机
+                bombsubject.registerObserver(enemyAircrafts.get(enemyAircrafts.size() - 1));
 
                 // 飞机射出子弹
                 shootAction();
@@ -329,7 +339,11 @@ public class Game extends JPanel {
         // 敌机射击
         for (AbstractAircraft enemy : enemyAircrafts) {
             if (enemy instanceof MobEnemy) continue; // 普通敌机不射击
-            enemyBullets.addAll(enemy.shoot());
+            List<BaseBullet> bullets = enemy.shoot();
+            enemyBullets.addAll(bullets);
+            for (BaseBullet bullet : bullets){
+                bombsubject.registerObserver(bullet);
+            }
         }
 
         // 英雄射击
@@ -416,17 +430,17 @@ public class Game extends JPanel {
                         int prop_x = enemyAircraft.getLocationX();
                         int prop_y = enemyAircraft.getLocationY();
                         if (enemyAircraft instanceof MobEnemy){
-                            score += 10;
+                            // score += 10; // 代码移动到后处理
                         }else if (enemyAircraft instanceof EliteEnemy){
-                            score += 20;
+                            // score += 20;
                             generate_prop(prop_x, prop_y);
                         }
                         else if (enemyAircraft instanceof SuperEliteEnemy){
-                            score += 30;
+                            // score += 30;
                             generate_prop(prop_x, prop_y);
                         }
                         if (enemyAircraft instanceof BossEnemy){ // 生成 <= 3个道具
-                            score += 50;
+                            // score += 50;
                             generate_prop(prop_x, prop_y);
                             generate_prop((prop_x + 100) % Main.WINDOW_WIDTH, prop_y + 20);
                             generate_prop((prop_x + 200) % Main.WINDOW_WIDTH, prop_y + 50);
@@ -458,6 +472,7 @@ public class Game extends JPanel {
                 } else if (prop instanceof PropBomb){
                     if (MusicOpen) new MusicThread(boom_music).start();
                     prop.action();
+                    bombsubject.notifyObservers();
                 }
             }
         }
@@ -471,10 +486,40 @@ public class Game extends JPanel {
      * 无效的原因可能是撞击或者飞出边界
      */
     private void postProcessAction() {
-        enemyBullets.removeIf(AbstractFlyingObject::notValid);
+        // 移除无效敌机
+        Iterator<AbstractAircraft> aircraftIter = enemyAircrafts.iterator();
+        while (aircraftIter.hasNext()) {
+            AbstractAircraft aircraft = aircraftIter.next();
+            if (!aircraft.notValid()) continue; // 注意：notValid() 返回 true 表示无效
+
+            // 获得分数
+            if (aircraft instanceof MobEnemy) score += 10;
+            else if (aircraft instanceof EliteEnemy) score += 20;
+            else if (aircraft instanceof SuperEliteEnemy) score += 30;
+            else if (aircraft instanceof BossEnemy) score += 50;
+
+
+            bombsubject.removeObserver(aircraft); // 先取消注册
+            aircraftIter.remove();                // 再从集合移除
+        }
+
+        // 移除无效子弹
+        Iterator<BaseBullet> bulletIter = enemyBullets.iterator();
+        while (bulletIter.hasNext()) {
+            BaseBullet bullet = bulletIter.next();
+            if (!bullet.notValid()) continue;
+            bombsubject.removeObserver(bullet);
+            bulletIter.remove();
+        }
+
         heroBullets.removeIf(AbstractFlyingObject::notValid);
-        enemyAircrafts.removeIf(AbstractFlyingObject::notValid);
         props.removeIf(AbstractFlyingObject::notValid);
+
+        // For debug
+        // System.out.println(enemyAircrafts.size());
+        // System.out.println(enemyBullets.size());
+        // System.out.println(bombsubject.observersFlying.size());
+        // System.out.println("=================================");
     }
 
 
