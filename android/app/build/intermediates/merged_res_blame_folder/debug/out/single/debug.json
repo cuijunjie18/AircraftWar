@@ -1,0 +1,82 @@
+[
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/layout_activity_main.xml.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "edu.hitsz.aircraftwar.app-merged_res-20:/drawable_ic_launcher_background.xml.flat",
+        "source": "edu.hitsz.aircraftwar.app-main-22:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/drawable_bullet_enemy.png.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/drawable/bullet_enemy.png"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "edu.hitsz.aircraftwar.app-merged_res-20:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "edu.hitsz.aircraftwar.app-main-22:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/drawable_bg.jpg.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/drawable/bg.jpg"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/drawable_mob.png.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/drawable/mob.png"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/drawable_bullet_hero.png.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/drawable/bullet_hero.png"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/drawable_hero.png.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/drawable/hero.png"
+    },
+    {
+        "merged": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-merged_res-20:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "/Users/junjiecui/.gradle/daemon/8.2/edu.hitsz.aircraftwar.app-main-22:/mipmap-mdpi/ic_launcher.webp"
+    }
+]

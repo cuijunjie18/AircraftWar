@@ -1,0 +1,84 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="edu.hitsz.aircraftwar"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <permission
+11-->[androidx.core:core:1.12.0] /Users/junjiecui/.gradle/caches/transforms-3/2ccd268e0ca2e1cd10ec650ac8067a3e/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
+12        android:name="edu.hitsz.aircraftwar.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+12-->[androidx.core:core:1.12.0] /Users/junjiecui/.gradle/caches/transforms-3/2ccd268e0ca2e1cd10ec650ac8067a3e/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
+13        android:protectionLevel="signature" />
+13-->[androidx.core:core:1.12.0] /Users/junjiecui/.gradle/caches/transforms-3/2ccd268e0ca2e1cd10ec650ac8067a3e/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
+14
+15    <uses-permission android:name="edu.hitsz.aircraftwar.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+15-->[androidx.core:core:1.12.0] /Users/junjiecui/.gradle/caches/transforms-3/2ccd268e0ca2e1cd10ec650ac8067a3e/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
+15-->[androidx.core:core:1.12.0] /Users/junjiecui/.gradle/caches/transforms-3/2ccd268e0ca2e1cd10ec650ac8067a3e/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
+16
+17    <application
+17-->/Users/junjiecui/workspace/AircraftWar/android/app/src/main/AndroidManifest.xml:4:5-20:19
+18        android:allowBackup="true"
+18-->/Users/junjiecui/workspace/AircraftWar/android/app/src/main/AndroidManifest.xml:5:9-35
+19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+19-->[androidx.core:core:1.12.0] /Users/junjiecui/.gradle/caches/transforms-3/2ccd268e0ca2e1cd10ec650ac8067a3e/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
+20        android:debuggable="true"
+21        android:extractNativeLibs="false"
+22        android:icon="@mipmap/ic_launcher"
+22-->/Users/junjiecui/workspace/AircraftWar/android/app/src/main/AndroidManifest.xml:6:9-43
+23        android:label="@string/app_name"
+23-->/Users/junjiecui/workspace/AircraftWar/android/app/src/main/AndroidManifest.xml:7:9-41
+24        android:supportsRtl="true"
+24-->/Users/junjiecui/workspace/AircraftWar/android/app/src/main/AndroidManifest.xml:8:9-35
+25        android:testOnly="true"
+26        android:theme="@style/Theme.AircraftWar" >
+26-->/Users/junjiecui/workspace/AircraftWar/android/app/src/main/AndroidManifest.xml:9:9-49
+27        <activity
+27-->/Users/junjiecui/workspace/AircraftWar/android/app/src/main/AndroidManifest.xml:10:9-19:20
+28            android:name="edu.hitsz.aircraftwar.application.MainActivity"
+28-->/Users/junjiecui/workspace/AircraftWar/android/app/src/main/AndroidManifest.xml:11:13-53
+29            android:configChanges="orientation|screenSize"
+29-->/Users/junjiecui/workspace/AircraftWar/android/app/src/main/AndroidManifest.xml:14:13-59
+30            android:exported="true"
+30-->/Users/junjiecui/workspace/AircraftWar/android/app/src/main/AndroidManifest.xml:12:13-36
+31            android:screenOrientation="portrait" >
+31-->/Users/junjiecui/workspace/AircraftWar/android/app/src/main/AndroidManifest.xml:13:13-49
+32            <intent-filter>
+32-->/Users/junjiecui/workspace/AircraftWar/android/app/src/main/AndroidManifest.xml:15:13-18:29
+33                <action android:name="android.intent.action.MAIN" />
+33-->/Users/junjiecui/workspace/AircraftWar/android/app/src/main/AndroidManifest.xml:16:17-69
+33-->/Users/junjiecui/workspace/AircraftWar/android/app/src/main/AndroidManifest.xml:16:25-66
+34
+35                <category android:name="android.intent.category.LAUNCHER" />
+35-->/Users/junjiecui/workspace/AircraftWar/android/app/src/main/AndroidManifest.xml:17:17-77
+35-->/Users/junjiecui/workspace/AircraftWar/android/app/src/main/AndroidManifest.xml:17:27-74
+36            </intent-filter>
+37        </activity>
+38
+39        <provider
+39-->[androidx.emoji2:emoji2:1.2.0] /Users/junjiecui/.gradle/caches/transforms-3/6f6fec51fc0bf858d6900b90dd62d6da/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+40            android:name="androidx.startup.InitializationProvider"
+40-->[androidx.emoji2:emoji2:1.2.0] /Users/junjiecui/.gradle/caches/transforms-3/6f6fec51fc0bf858d6900b90dd62d6da/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
+41            android:authorities="edu.hitsz.aircraftwar.androidx-startup"
+41-->[androidx.emoji2:emoji2:1.2.0] /Users/junjiecui/.gradle/caches/transforms-3/6f6fec51fc0bf858d6900b90dd62d6da/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
+42            android:exported="false" >
+42-->[androidx.emoji2:emoji2:1.2.0] /Users/junjiecui/.gradle/caches/transforms-3/6f6fec51fc0bf858d6900b90dd62d6da/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
+43            <meta-data
+43-->[androidx.emoji2:emoji2:1.2.0] /Users/junjiecui/.gradle/caches/transforms-3/6f6fec51fc0bf858d6900b90dd62d6da/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+44                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+44-->[androidx.emoji2:emoji2:1.2.0] /Users/junjiecui/.gradle/caches/transforms-3/6f6fec51fc0bf858d6900b90dd62d6da/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
+45                android:value="androidx.startup" />
+45-->[androidx.emoji2:emoji2:1.2.0] /Users/junjiecui/.gradle/caches/transforms-3/6f6fec51fc0bf858d6900b90dd62d6da/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
+46            <meta-data
+46-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/junjiecui/.gradle/caches/transforms-3/7a571294463d6954fdc6388f1e304f5b/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:31:13-33:52
+47                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+47-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/junjiecui/.gradle/caches/transforms-3/7a571294463d6954fdc6388f1e304f5b/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:32:17-78
+48                android:value="androidx.startup" />
+48-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/junjiecui/.gradle/caches/transforms-3/7a571294463d6954fdc6388f1e304f5b/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:33:17-49
+49        </provider>
+50    </application>
+51
+52</manifest>

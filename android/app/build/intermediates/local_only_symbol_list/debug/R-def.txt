@@ -1,0 +1,15 @@
+R_DEF: Internal format may change without notice
+local
+drawable bg
+drawable bullet_enemy
+drawable bullet_hero
+drawable hero
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable mob
+id game_container
+layout activity_main
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Theme.AircraftWar
